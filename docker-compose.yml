@@ -1,0 +1,10 @@
+version: '3'
+services:
+  fedora:
+    image: githubtest
+    build:
+      context: .
+      args:
+         SSH_PRIVATE_KEY:
+         SSH_CONFIG:
+  
