@@ -10,13 +10,13 @@ ARG SSH_PRIVATE_KEY
 ARG SSH_CONFIG
 ARG USER
 RUN echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa && \
-    chmod -R 400 ~/.ssh && \
-    echo "${SSH_CONFIG}" > ~/.ssh/config
-
-# RUN eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
+    chmod -R 400 ~/.ssh 
 
 WORKDIR /app
 RUN git clone --branch=master --depth=1 --single-branch git@github.com:sebastianbergmann/phpunit.git
 RUN chown -R "${USER}:${USER}" phpunit
 
 CMD bash
+
+# And build it with: 
+# $ docker image build --no-cache --force-rm --build-arg USER=1000 --build-arg SSH_PRIVATE_KEY="`cat ~/.ssh/id_rsa`" -f Dockerfile -t beforebuildkit .
