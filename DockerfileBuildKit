@@ -8,12 +8,14 @@ RUN dnf -y install git openssh-clients && \
 RUN mkdir -p -m 0600 ~/.ssh && \
     ssh-keyscan github.com >> ~/.ssh/known_hosts
 
+ARG USER
 
 WORKDIR /app
 RUN --mount=type=ssh git clone --branch=master --depth=1 --single-branch git@github.com:sebastianbergmann/phpunit.git
-RUN chown -R 1000:1000 phpunit
+RUN chown -R ${USER}:${USER} phpunit
 
 CMD bash
 
 # build it with, for example:
-# $ docker image build --file DockerfileBuildKit -t testssh --ssh default .
+# $ docker image build --file DockerfileBuildKit --build-arg USER=$(id -u) -t testssh --ssh default .
+

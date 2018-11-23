@@ -19,4 +19,5 @@ RUN chown -R "${USER}:${USER}" phpunit
 CMD bash
 
 # And build it with: 
-# $ docker image build --no-cache --force-rm --build-arg USER=1000 --build-arg SSH_PRIVATE_KEY="`cat ~/.ssh/id_rsa`" -f Dockerfile -t beforebuildkit .
+# docker image build --no-cache --force-rm --build-arg USER=$(id -u) --build-arg SSH_PRIVATE_KEY="`cat ~/.ssh/id_rsa`" -f Dockerfile -t beforebuildkit .
+
